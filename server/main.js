@@ -6,14 +6,14 @@ const fs = require("fs");
 function createMainWindow() {
   const mainWindow = new BrowserWindow({
     title: "Electron + React",
-    width: 1000,
+    width: 1100,
     height: 700,
+    icon: path.join(__dirname, "../assets", "Note-Icon.png"),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
       nodeIntegration: false,
     },
-    icon: path.join(__dirname, "../renderer/assets/photos/notebook.png"),
   });
 
   const startUrl = process.env.VITE_DEV_SERVER_URL || "http://localhost:5173";
