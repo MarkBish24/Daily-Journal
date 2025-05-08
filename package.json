@@ -1,0 +1,30 @@
+{
+  "name": "daily-journal",
+  "version": "1.0.0",
+  "description": "This is a project on creating a new daily journal/text-editor project involving react, electron and mongodb",
+  "main": "server/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
+    "dev:react": "cd app && npm run dev",
+    "dev:electron": "wait-on http://localhost:5173 && electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkBish24/Daily-Journal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarkBish24/Daily-Journal/issues"
+  },
+  "homepage": "https://github.com/MarkBish24/Daily-Journal#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "electron": "^36.2.0",
+    "electron-reloader": "^1.2.3",
+    "wait-on": "^8.0.3"
+  }
+}
