@@ -39,7 +39,7 @@ ipcMain.handle("open-text-editor", async (event, date) => {
   );
 
   textEditorWindow.on("closed", () => {
-    textEditorWindow = null;
+    console.log("Closing Window");
   });
 });
 
