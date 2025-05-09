@@ -2,6 +2,20 @@
   flex: 1;
   height: 140px;
   margin: 2px;
-  background-color: gray;
+  background-color: rgb(185, 185, 185);
   border-radius: 5px;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+}
+
+.day-box:hover {
+  background-color: rgb(169, 193, 169);
+}
+
+.day-index {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 200;
+  padding-top: 5px;
 }

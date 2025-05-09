@@ -4,10 +4,11 @@ import Header from "./components/Header.jsx";
 import Calendar from "./components/Calendar.jsx";
 
 export default function App() {
+  const [date, setDate] = useState(new Date());
   return (
     <>
-      <Header />
-      <Calendar />
+      <Header date={date} setDate={setDate} />
+      <Calendar date={date} />
     </>
   );
 }
