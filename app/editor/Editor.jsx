@@ -14,21 +14,31 @@ export default function Editor() {
     }
   }, [date]);
 
+  const parsedDate = new Date(date);
+
+  const formattedDate = parsedDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
     <div className="editor-container">
-      <h1>Text Editor for {date}</h1>
+      <h1 className="title">{formattedDate}</h1>
       <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)} // Update content in real-time
+        className="text-box"
+        placeholder="How was your day? ;)"
+        onChange={(e) => setContent(e.target.value)}
         rows="20"
         cols="60"
       />
       <button
+        className="submit-button"
         onClick={() => {
-          alert(`Saved content for ${date}: ${content}`);
+          alert(`Saved content for ${formattedDate}}: ${content}`);
         }}
       >
-        Save
+        Submit
       </button>
     </div>
   );
