@@ -1,7 +1,7 @@
 import "./Calendar.css";
 import DayBox from "./DayBox.jsx";
 
-export default function Calendar({ date }) {
+export default function Calendar({ date, handleOpenTextEditor }) {
   return (
     <>
       <div className="calendar-container">{updateMonth(date)}</div>
@@ -24,7 +24,14 @@ export default function Calendar({ date }) {
       if (i < 1) {
         week.push(<div className="empty-box" key={`empty-${i}`}></div>);
       } else if (i <= daysInMonth.length) {
-        week.push(<DayBox index={i} />);
+        const dayDate = new Date(year, month, i);
+        week.push(
+          <DayBox
+            index={i}
+            handleOpenTextEditor={handleOpenTextEditor}
+            date={dayDate}
+          />
+        );
       }
 
       if (week.length === 7) {

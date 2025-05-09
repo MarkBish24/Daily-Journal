@@ -21,8 +21,9 @@ function createMainWindow() {
   mainWindow.loadURL(startUrl);
 }
 
-function openTextEditorWindow(date) {
-  textEditorWindow = new BrowserWindow({
+ipcMain.handle("open-text-editor", async (event, date) => {
+  console.log("Opening text editor for date:", date);
+  const textEditorWindow = new BrowserWindow({
     title: date,
     width: 500,
     height: 800,
@@ -32,9 +33,14 @@ function openTextEditorWindow(date) {
       nodeIntegration: false,
     },
   });
+
   textEditorWindow.loadURL(
-    process.env.VITE_DEV_SERVER_URL || "http://localhost:5173/editor"
+    process.env.VITE_DEV_SERVER_URL || `http://localhost:5173/editor/${date}`
   );
-}
+
+  textEditorWindow.on("closed", () => {
+    textEditorWindow = null;
+  });
+});
 
 app.whenReady().then(createMainWindow);
