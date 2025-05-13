@@ -1,17 +1,11 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const db = require("../db/db");
 
-const dbPath = path.join(__dirname, "../db/journal.db");
-const db = new Database(dbPath);
+// Create a table if it doesn't already exist
+//
 
-db.prepare(
-  `
-    CREATE TABLE IF NOT EXISTS entries (
-        date TEXT PRIMARY KEY,
-        content TEXT
-    );
-  `
-).run();
+//Window
 
 function createMainWindow() {
   const mainWindow = new BrowserWindow({
@@ -60,4 +54,25 @@ ipcMain.handle("open-text-editor", async (event, date) => {
   });
 });
 
+ipcMain.handle("check-entry", async (event, date) => {
+  const stmt = db.prepare(`SELECT content FROM journals WHERE entry_date = ?`);
+  const result = stmt.get(date);
+  return result ? true : false;
+});
+
+ipcMain.handle("get-entry", async (event, date) => {
+  const stmt = db.prepare(`SELECT content FROM journals WHERE entry_date = ?`);
+  const result = stmt.get(date);
+  return result ? result.content : null;
+});
+
+ipcMain.handle("save-entry", async (event, date, content) => {
+  const stmt = db.prepare(`
+    INSERT INTO journals (entry_date, content)
+    VALUES (?,?)
+    ON CONFLICT(entry_date) DO UPDATE SET content = excluded.content
+    `);
+
+  stmt.run(date, content);
+});
 app.whenReady().then(createMainWindow);

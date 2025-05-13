@@ -3,14 +3,16 @@
   height: 140px;
   margin: 2px;
   background-color: rgb(185, 185, 185);
+  color: black;
   border-radius: 5px;
   cursor: pointer;
 
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .day-box:hover {
   background-color: rgb(106, 207, 106);
+  color: white;
 }
 
 .day-index {
