@@ -1,3 +1,11 @@
+export const handleOpenTextEditor = async (targetDate) => {
+  try {
+    await window.electronAPI.openTextEditor(targetDate);
+  } catch (error) {
+    console.error("Failed to open text editor:", error);
+  }
+};
+
 export const handleCheckEntry = async (targetDate) => {
   try {
     const entry = await window.electronAPI.checkEntry(targetDate);
@@ -25,4 +33,11 @@ export const handleSaveEntry = async (targetDate, content) => {
   } catch (error) {
     console.error("Failed to save entry to database:", error);
   }
+};
+
+export const formatDate = (dateObj) => {
+  const offsetDate = new Date(
+    dateObj.getTime() - dateObj.getTimezoneOffset() * 60000
+  );
+  return offsetDate.toISOString().split("T")[0]; // Keeps local date
 };

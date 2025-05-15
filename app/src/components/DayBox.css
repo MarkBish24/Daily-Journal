@@ -2,7 +2,6 @@
   flex: 1;
   height: 140px;
   margin: 2px;
-  background-color: rgb(185, 185, 185);
   color: black;
   border-radius: 5px;
   cursor: pointer;
@@ -10,6 +9,12 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.has-entry {
+  background-color: rgb(246, 227, 143);
+}
+.no-entry {
+  background-color: rgb(231, 231, 231);
+}
 .day-box:hover {
   background-color: rgb(106, 207, 106);
   color: white;
@@ -20,4 +25,11 @@
   font-size: 16px;
   font-weight: 200;
   padding-top: 5px;
+}
+
+.paragraph {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  padding: 5px;
 }

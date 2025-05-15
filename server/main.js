@@ -39,12 +39,6 @@ ipcMain.handle("open-text-editor", async (event, date) => {
     },
   });
 
-  const formattedDate = date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
   textEditorWindow.loadURL(
     process.env.VITE_DEV_SERVER_URL || `http://localhost:5173/editor/${date}`
   );

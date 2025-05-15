@@ -15,15 +15,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 export default function App() {
   const [date, setDate] = useState(new Date());
-
-  const handleOpenTextEditor = async (targetDate) => {
-    try {
-      await window.electronAPI.openTextEditor(targetDate);
-    } catch (error) {
-      console.error("Failed to open text editor:", error);
-    }
-  };
-
   return (
     <Router>
       <Routes>
@@ -32,10 +23,7 @@ export default function App() {
           element={
             <>
               <Header date={date} setDate={setDate} />
-              <Calendar
-                date={date}
-                handleOpenTextEditor={handleOpenTextEditor}
-              />
+              <Calendar date={date} />
             </>
           }
         ></Route>

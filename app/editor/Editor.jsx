@@ -7,6 +7,7 @@ import {
   handleCheckEntry,
   handleGetEntry,
   handleSaveEntry,
+  formatDate,
 } from "../src/DataBaseFunctions.jsx";
 
 export default function Editor() {
@@ -16,14 +17,13 @@ export default function Editor() {
   const [content, setContent] = useState("");
 
   const parsedDate = new Date(date);
+  const formattedDate = formatDate(parsedDate);
 
   const TitleDate = parsedDate.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
-
-  const formattedDate = parsedDate.toISOString().split("T")[0];
 
   useEffect(() => {
     async function fetchContent() {
@@ -55,8 +55,7 @@ export default function Editor() {
         className="submit-button"
         onClick={() => {
           try {
-            handleSaveEntry(formattedDate, content);
-            alert(`Saved content for ${TitleDate}: ${content}`);
+            handleSaveEntry(formatDate(parsedDate), content);
           } catch (error) {
             alert(`Error Occured Saving Data: ${error}`);
           }
