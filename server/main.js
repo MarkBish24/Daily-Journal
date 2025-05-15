@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const db = require("../db/db");
+const db = require("../db/db.js");
 
 // Create a table if it doesn't already exist
 //
@@ -67,12 +67,16 @@ ipcMain.handle("get-entry", async (event, date) => {
 });
 
 ipcMain.handle("save-entry", async (event, date, content) => {
-  const stmt = db.prepare(`
-    INSERT INTO journals (entry_date, content)
-    VALUES (?,?)
-    ON CONFLICT(entry_date) DO UPDATE SET content = excluded.content
+  try {
+    console.log("Saving entry:", date, content);
+    const stmt = db.prepare(`
+      INSERT INTO journals (entry_date, content)
+      VALUES (?,?)
+      ON CONFLICT(entry_date) DO UPDATE SET content = excluded.content
     `);
-
-  stmt.run(date, content);
+    stmt.run(date, content);
+  } catch (err) {
+    console.error("Failed to save entry:", err.message);
+  }
 });
 app.whenReady().then(createMainWindow);

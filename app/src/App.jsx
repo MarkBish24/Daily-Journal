@@ -5,6 +5,12 @@ import Header from "./components/Header.jsx";
 import Calendar from "./components/Calendar.jsx";
 import Editor from "../editor/Editor.jsx";
 
+import {
+  handleCheckEntry,
+  handleGetEntry,
+  handleSaveEntry,
+} from "./DataBaseFunctions.jsx";
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 export default function App() {
@@ -15,35 +21,6 @@ export default function App() {
       await window.electronAPI.openTextEditor(targetDate);
     } catch (error) {
       console.error("Failed to open text editor:", error);
-    }
-  };
-
-  const handleCheckEntry = async (targetDate) => {
-    try {
-      const entry = await window.electronAPI.checkEntry(targetDate);
-      return entry;
-    } catch (error) {
-      console.error("Failed to find date in DataBase:", error);
-      return false;
-    }
-  };
-
-  const handleGetEntry = async (targetDate) => {
-    try {
-      const entry = await window.electronAPI.getEntry(targetDate);
-      return entry;
-    } catch (error) {
-      console.error("Failed to find date in DataBase:", error);
-      return null;
-    }
-  };
-
-  const handleSaveEntry = async (targetDate, content) => {
-    try {
-      await window.electronAPI.saveEntry(targetDate, content);
-      console.log("Entry saved successfully");
-    } catch (error) {
-      console.error("Failed to save entry to database:", error);
     }
   };
 
