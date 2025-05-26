@@ -30,7 +30,10 @@ export default function DayBox({ index, date }) {
     <>
       <div
         className={`day-box ${entryExists ? "has-entry" : "no-entry"}`}
-        onClick={() => handleOpenTextEditor(formatDate(date))}
+        id={formatDate(date)}
+        onClick={() => {
+          handleOpenTextEditor(formatDate(date));
+        }}
       >
         <div className="day-index">{index}</div>
         {entryExists ? <div className="paragraph"> {paragraph}</div> : null}

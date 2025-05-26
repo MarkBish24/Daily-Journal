@@ -1,6 +1,8 @@
 import "./Calendar.css";
 import DayBox from "./DayBox.jsx";
 
+import { formatDate } from "../DataBaseFunctions.jsx";
+
 export default function Calendar({ date }) {
   return (
     <>

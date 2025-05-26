@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import "./Editor.css";
@@ -7,17 +7,22 @@ import {
   handleCheckEntry,
   handleGetEntry,
   handleSaveEntry,
-  formatDate,
 } from "../src/DataBaseFunctions.jsx";
 
 export default function Editor() {
   const { date } = useParams();
 
+  function parseDateAsLocal(dateString) {
+    const [year, month, day] = dateString.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  const parsedDate = parseDateAsLocal(date);
+
+  console.log(date, parsedDate);
+
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState("");
-
-  const parsedDate = new Date(date);
-  const formattedDate = formatDate(parsedDate);
 
   const TitleDate = parsedDate.toLocaleDateString("en-US", {
     month: "long",
@@ -28,9 +33,9 @@ export default function Editor() {
   useEffect(() => {
     async function fetchContent() {
       setLoading(true);
-      const exists = await handleCheckEntry(formattedDate);
+      const exists = await handleCheckEntry(date);
       if (exists) {
-        const savedContent = await handleGetEntry(formattedDate);
+        const savedContent = await handleGetEntry(date);
         setContent(savedContent || "");
       } else {
         setContent("");
@@ -55,7 +60,7 @@ export default function Editor() {
         className="submit-button"
         onClick={() => {
           try {
-            handleSaveEntry(formatDate(parsedDate), content);
+            handleSaveEntry(date, content);
           } catch (error) {
             alert(`Error Occured Saving Data: ${error}`);
           }
