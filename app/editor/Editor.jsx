@@ -7,6 +7,8 @@ import {
   handleCheckEntry,
   handleGetEntry,
   handleSaveEntry,
+  handleOpenTextEditor,
+  formatDate,
 } from "../src/DataBaseFunctions.jsx";
 
 export default function Editor() {
@@ -18,8 +20,6 @@ export default function Editor() {
   }
 
   const parsedDate = parseDateAsLocal(date);
-
-  console.log(date, parsedDate);
 
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState("");
@@ -45,9 +45,41 @@ export default function Editor() {
     fetchContent();
   }, [date]);
 
+  function decreaseDay(oldDate) {
+    oldDate = parseDateAsLocal(oldDate);
+    oldDate.setDate(oldDate.getDate() - 1);
+    handleOpenTextEditor(formatDate(oldDate));
+  }
+
+  function increaseDay(oldDate) {
+    oldDate = parseDateAsLocal(oldDate);
+    oldDate.setDate(oldDate.getDate() + 1);
+    handleOpenTextEditor(formatDate(oldDate));
+  }
+
   return (
     <div className="editor-container">
-      <h1 className="title">{TitleDate}</h1>
+      <div className="header-container">
+        <button
+          className="left-arrow"
+          onClick={() => {
+            decreaseDay(date);
+          }}
+        >
+          {" "}
+          &lsaquo;
+        </button>
+        <h1 className="title">{TitleDate}</h1>
+        <button
+          className="right-arrow"
+          onClick={() => {
+            increaseDay(date);
+          }}
+        >
+          {" "}
+          &rsaquo;
+        </button>
+      </div>
       <textarea
         className="text-box"
         placeholder="How was your day? ;)"
