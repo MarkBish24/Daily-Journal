@@ -6,9 +6,11 @@ const db = require("../db/db.js");
 //
 
 //Window
+let textEditorWindow = null;
+let mainWindow = null;
 
 function createMainWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     title: "Electron + React",
     width: 1100,
     height: 700,
@@ -27,7 +29,16 @@ function createMainWindow() {
 
 ipcMain.handle("open-text-editor", async (event, date) => {
   console.log("Opening text editor for date:", date);
-  const textEditorWindow = new BrowserWindow({
+
+  if (textEditorWindow && !textEditorWindow.isDestroyed()) {
+    await new Promise((resolve) => {
+      textEditorWindow.once("closed", resolve);
+      textEditorWindow.close();
+    });
+    textEditorWindow = null;
+  }
+
+  textEditorWindow = new BrowserWindow({
     title: date,
     width: 600,
     height: 800,
@@ -44,6 +55,7 @@ ipcMain.handle("open-text-editor", async (event, date) => {
   );
 
   textEditorWindow.on("closed", () => {
+    textEditorWindow = null;
     console.log("Closing Window");
   });
 });
@@ -69,8 +81,15 @@ ipcMain.handle("save-entry", async (event, date, content) => {
       ON CONFLICT(entry_date) DO UPDATE SET content = excluded.content
     `);
     stmt.run(date, content);
+    if (textEditorWindow && !textEditorWindow.isDestroyed()) {
+      textEditorWindow.close();
+    }
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.reload();
+    }
   } catch (err) {
     console.error("Failed to save entry:", err.message);
   }
 });
+
 app.whenReady().then(createMainWindow);
