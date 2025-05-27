@@ -5,12 +5,6 @@ import Header from "./components/Header.jsx";
 import Calendar from "./components/Calendar.jsx";
 import Editor from "../editor/Editor.jsx";
 
-import {
-  handleCheckEntry,
-  handleGetEntry,
-  handleSaveEntry,
-} from "./DataBaseFunctions.jsx";
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 export default function App() {

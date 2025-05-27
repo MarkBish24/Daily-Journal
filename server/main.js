@@ -2,10 +2,6 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const db = require("../db/db.js");
 
-// Create a table if it doesn't already exist
-//
-
-//Window
 let textEditorWindow = null;
 let mainWindow = null;
 

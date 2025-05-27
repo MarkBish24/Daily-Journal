@@ -20,6 +20,7 @@ export default function Editor() {
   }
 
   const parsedDate = parseDateAsLocal(date);
+  const parsedTodayDate = formatDate(new Date());
 
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState("");
@@ -66,7 +67,6 @@ export default function Editor() {
             decreaseDay(date);
           }}
         >
-          {" "}
           &lsaquo;
         </button>
         <h1 className="title">{TitleDate}</h1>
@@ -76,30 +76,35 @@ export default function Editor() {
             increaseDay(date);
           }}
         >
-          {" "}
           &rsaquo;
         </button>
       </div>
-      <textarea
-        className="text-box"
-        placeholder="How was your day? ;)"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        rows="20"
-        cols="60"
-      />
-      <button
-        className="submit-button"
-        onClick={() => {
-          try {
-            handleSaveEntry(date, content);
-          } catch (error) {
-            alert(`Error Occured Saving Data: ${error}`);
-          }
-        }}
-      >
-        Submit
-      </button>
+      {date === parsedTodayDate ? (
+        <>
+          <textarea
+            className="text-box"
+            placeholder="How was your day? ;)"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows="20"
+            cols="60"
+          />
+          <button
+            className="submit-button"
+            onClick={() => {
+              try {
+                handleSaveEntry(date, content);
+              } catch (error) {
+                alert(`Error Occured Saving Data: ${error}`);
+              }
+            }}
+          >
+            Submit
+          </button>
+        </>
+      ) : (
+        <p className="paragraph-content">{content}</p>
+      )}
     </div>
   );
 }
