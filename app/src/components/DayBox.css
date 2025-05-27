@@ -20,6 +20,20 @@
   color: white;
 }
 
+.pulse-effect {
+  animation: pulseColor 5s ease-in-out infinite;
+}
+
+@keyframes pulseColor {
+  0%,
+  100% {
+    background-color: rgb(236, 176, 171);
+  }
+  50% {
+    background-color: rgb(233, 93, 144);
+  }
+}
+
 .day-index {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;

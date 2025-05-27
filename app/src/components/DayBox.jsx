@@ -12,13 +12,17 @@ export default function DayBox({ index, date }) {
   const [entryExists, setEntryExists] = useState(false);
   const [paragraph, setParagraph] = useState("");
 
+  const today = formatDate(new Date());
+  const formatted = formatDate(date);
+
   useEffect(() => {
     const check = async () => {
-      const formatted = formatDate(date);
       const exists = await handleCheckEntry(formatted);
       if (exists) {
         const content = await handleGetEntry(formatted);
-        setParagraph(content);
+        setParagraph(
+          content.length > 100 ? content.slice(0, 100) + "..." : content
+        );
       }
       setEntryExists(exists);
     };
@@ -29,7 +33,9 @@ export default function DayBox({ index, date }) {
   return (
     <>
       <div
-        className={`day-box ${entryExists ? "has-entry" : "no-entry"}`}
+        className={`day-box ${entryExists ? "has-entry" : "no-entry"} ${
+          today === formatted ? "pulse-effect" : ""
+        }`}
         id={formatDate(date)}
         onClick={() => {
           handleOpenTextEditor(formatDate(date));
