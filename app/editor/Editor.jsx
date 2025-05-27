@@ -50,14 +50,12 @@ export default function Editor() {
 
   async function decreaseDate(oldDate) {
     const newDate = await handleGetPrevEntryDate(oldDate);
-    console.log(newDate);
-    handleOpenTextEditor(newDate);
+    if (newDate) handleOpenTextEditor(newDate);
   }
 
   async function increaseDate(oldDate) {
     const newDate = await handleGetNextEntryDate(oldDate);
-    console.log(newDate);
-    handleOpenTextEditor(newDate);
+    if (newDate) handleOpenTextEditor(newDate);
   }
 
   return (
