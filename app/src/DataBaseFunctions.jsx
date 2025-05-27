@@ -38,20 +38,22 @@ export const handleSaveEntry = async (targetDate, content) => {
 export const handleGetPrevEntryDate = async (targetDate) => {
   try {
     const prevDate = await window.electronAPI.getPrevEntryDate(targetDate);
-    console.log("Found Previous Entry");
-    return prevDate;
+    console.log("Found Previous Entry:", prevDate);
+    return prevDate || null;
   } catch (error) {
     console.error("Failed to get previous entry from database:", error);
+    return null;
   }
 };
 
 export const handleGetNextEntryDate = async (targetDate) => {
   try {
     const nextDate = await window.electronAPI.getNextEntryDate(targetDate);
-    console.log("Found Next Entry");
-    return nextDate;
+    console.log("Found Next Entry:", nextDate);
+    return nextDate || null;
   } catch (error) {
     console.error("Failed to get next entry from database:", error);
+    return null;
   }
 };
 

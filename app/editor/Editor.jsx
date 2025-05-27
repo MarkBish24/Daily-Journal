@@ -8,6 +8,8 @@ import {
   handleGetEntry,
   handleSaveEntry,
   handleOpenTextEditor,
+  handleGetNextEntryDate,
+  handleGetPrevEntryDate,
   formatDate,
 } from "../src/DataBaseFunctions.jsx";
 
@@ -46,16 +48,16 @@ export default function Editor() {
     fetchContent();
   }, [date]);
 
-  function decreaseDay(oldDate) {
-    oldDate = parseDateAsLocal(oldDate);
-    oldDate.setDate(oldDate.getDate() - 1);
-    handleOpenTextEditor(formatDate(oldDate));
+  async function decreaseDate(oldDate) {
+    const newDate = await handleGetPrevEntryDate(oldDate);
+    console.log(newDate);
+    handleOpenTextEditor(newDate);
   }
 
-  function increaseDay(oldDate) {
-    oldDate = parseDateAsLocal(oldDate);
-    oldDate.setDate(oldDate.getDate() + 1);
-    handleOpenTextEditor(formatDate(oldDate));
+  async function increaseDate(oldDate) {
+    const newDate = await handleGetNextEntryDate(oldDate);
+    console.log(newDate);
+    handleOpenTextEditor(newDate);
   }
 
   return (
@@ -64,7 +66,7 @@ export default function Editor() {
         <button
           className="left-arrow"
           onClick={() => {
-            decreaseDay(date);
+            decreaseDate(date);
           }}
         >
           &lsaquo;
@@ -73,7 +75,7 @@ export default function Editor() {
         <button
           className="right-arrow"
           onClick={() => {
-            increaseDay(date);
+            increaseDate(date);
           }}
         >
           &rsaquo;
