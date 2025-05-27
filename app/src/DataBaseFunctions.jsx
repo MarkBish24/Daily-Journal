@@ -35,6 +35,26 @@ export const handleSaveEntry = async (targetDate, content) => {
   }
 };
 
+export const handleGetPrevEntryDate = async (targetDate) => {
+  try {
+    const prevDate = await window.electronAPI.getPrevEntryDate(targetDate);
+    console.log("Found Previous Entry");
+    return prevDate;
+  } catch (error) {
+    console.error("Failed to get previous entry from database:", error);
+  }
+};
+
+export const handleGetNextEntryDate = async (targetDate) => {
+  try {
+    const nextDate = await window.electronAPI.getNextEntryDate(targetDate);
+    console.log("Found Next Entry");
+    return nextDate;
+  } catch (error) {
+    console.error("Failed to get next entry from database:", error);
+  }
+};
+
 export const formatDate = (dateObj) => {
   const offsetDate = new Date(
     dateObj.getTime() - dateObj.getTimezoneOffset() * 60000

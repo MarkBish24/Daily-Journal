@@ -22,7 +22,7 @@ function createMainWindow() {
 
   mainWindow.loadURL(startUrl);
 }
-
+//Opens a text editor
 ipcMain.handle("open-text-editor", async (event, date) => {
   console.log("Opening text editor for date:", date);
 
@@ -56,18 +56,21 @@ ipcMain.handle("open-text-editor", async (event, date) => {
   });
 });
 
+//checks if an entry exits returns a true or false
 ipcMain.handle("check-entry", async (event, date) => {
   const stmt = db.prepare(`SELECT content FROM journals WHERE entry_date = ?`);
   const result = stmt.get(date);
   return result ? true : false;
 });
 
+//gets the entry if it does exist
 ipcMain.handle("get-entry", async (event, date) => {
   const stmt = db.prepare(`SELECT content FROM journals WHERE entry_date = ?`);
   const result = stmt.get(date);
   return result ? result.content : null;
 });
 
+//saves the entry into the database
 ipcMain.handle("save-entry", async (event, date, content) => {
   try {
     console.log("Saving entry:", date, content);
@@ -85,6 +88,37 @@ ipcMain.handle("save-entry", async (event, date, content) => {
     }
   } catch (err) {
     console.error("Failed to save entry:", err.message);
+  }
+});
+
+ipcMain.handle("get-prev-entry-date", async (event, date) => {
+  try {
+    const stmt = db.prepare(`
+      SELECT * FROM journals
+      WHERE entry_date < ?
+      ORDER BY entry_date DESC
+      LIMIT 1
+    `);
+    const result = stmt.get(date);
+    return result ? result.entry_date : null;
+  } catch (err) {
+    console.error("Failed to find previous date entry:", err.message);
+  }
+});
+
+ipcMain.handle("get-next-entry-date", async (event, date) => {
+  try {
+    const stmt = db.prepare(`
+      SELECT * FROM journals 
+      WHERE entry_date > ?
+      ORDER BY entry_date ASC
+      LIMIT 1
+      `);
+
+    const result = stmt.get(date);
+    return result ? result.entry_date : null;
+  } catch (err) {
+    console.error("Failed to find next entry:", err.message);
   }
 });
 
