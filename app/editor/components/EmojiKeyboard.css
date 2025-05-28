@@ -22,8 +22,14 @@
   top: 6px;
   left: 50%;
   transform: translateX(-50%);
-  color: #888;
+  color: gray;
   cursor: pointer;
+
+  transition: color 0.1s ease-in-out;
+}
+
+.drag-bar:hover {
+  color: rgb(32, 32, 32);
 }
 
 .close-button {
@@ -34,6 +40,13 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  color: gray;
+
+  transition: color 0.1s ease-in-out;
+}
+
+.close-button:hover {
+  color: rgb(32, 32, 32);
 }
 
 .emoji-grid {
