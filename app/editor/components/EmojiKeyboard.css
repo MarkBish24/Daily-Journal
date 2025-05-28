@@ -1,5 +1,5 @@
 .emoji-container {
   width: 100px;
   height: 100px;
-  position: fixed;
+  background-color: green;
 }

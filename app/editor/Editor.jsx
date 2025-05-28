@@ -29,6 +29,7 @@ export default function Editor() {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState("");
   const [displayKeyboard, setdisplayKeyboard] = useState(false);
+  const [keyboardPositions, setKeyboardPositions] = useState({ x: 0, y: 0 });
 
   const TitleDate = parsedDate.toLocaleDateString("en-US", {
     month: "long",
@@ -94,11 +95,16 @@ export default function Editor() {
           />
           <button
             className="add-emoji-button"
-            onClick={() => setdisplayKeyboard(!displayKeyboard)}
+            onClick={(e) => {
+              setKeyboardPositions({ x: e.clientX, y: e.clientY });
+              setdisplayKeyboard(!displayKeyboard);
+            }}
           >
             Add Emoji
           </button>
-          {displayKeyboard ? <EmojiKeyboard /> : null}
+          {displayKeyboard ? (
+            <EmojiKeyboard positions={keyboardPositions} />
+          ) : null}
           <button
             className="submit-button"
             onClick={() => {
