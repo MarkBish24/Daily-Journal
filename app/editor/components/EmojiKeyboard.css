@@ -1,5 +1,37 @@
 .emoji-container {
-  width: 100px;
-  height: 100px;
-  background-color: green;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  width: 220px;
+  height: 150px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.emoji-button {
+  background-color: rgb(255, 255, 255);
+  transition: background-color 0.3s ease-in-out;
+
+  border: None;
+  border-radius: 3px;
+
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+
+  cursor: pointer;
+
+  font-size: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emoji-button:hover {
+  background-color: rgb(215, 232, 232);
 }

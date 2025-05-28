@@ -9,9 +9,17 @@ export default function EmojiKeyboard({ positions }) {
       className="emoji-container"
       style={{
         position: "fixed",
-        top: positions.y,
-        left: positions.x,
+        top: positions.y - 300,
+        left: positions.x - 100,
       }}
-    ></div>
+    >
+      {emojis.map((emoji, index) => {
+        return (
+          <button className="emoji-button" key={index}>
+            {emoji}
+          </button>
+        );
+      })}
+    </div>
   );
 }
