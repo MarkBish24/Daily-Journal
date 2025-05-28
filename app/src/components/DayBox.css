@@ -15,8 +15,12 @@
 .no-entry {
   background-color: rgb(231, 231, 231);
 }
-.day-box:hover {
+.has-entry:hover {
   background-color: rgb(106, 207, 106);
+  color: white;
+}
+.no-entry:hover {
+  background-color: rgb(183, 208, 183);
   color: white;
 }
 

@@ -38,7 +38,7 @@ export default function DayBox({ index, date }) {
         }`}
         id={formatDate(date)}
         onClick={() => {
-          handleOpenTextEditor(formatDate(date));
+          if (entryExists) handleOpenTextEditor(formatDate(date));
         }}
       >
         <div className="day-index">{index}</div>
