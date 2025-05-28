@@ -38,6 +38,30 @@
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.add-emoji-button {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+
+  background-color: rgb(230, 235, 240);
+  color: rgb(80, 80, 80);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-emoji-button:hover {
+  background-color: rgb(210, 220, 230);
+  transform: scale(1.03);
+}
+
 .submit-button {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 24px;

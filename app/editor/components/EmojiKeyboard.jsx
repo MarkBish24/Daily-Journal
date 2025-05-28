@@ -6,7 +6,12 @@ import { IoIosClose } from "react-icons/io";
 import emojis from "./emojis.js";
 import "./EmojiKeyboard.css";
 
-export default function EmojiKeyboard({ positions, setDisplayKeyboard }) {
+export default function EmojiKeyboard({
+  positions,
+  setDisplayKeyboard,
+  content,
+  setContent,
+}) {
   const [position, setPosition] = useState(positions);
   const isDragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
@@ -67,7 +72,13 @@ export default function EmojiKeyboard({ positions, setDisplayKeyboard }) {
 
       <div className="emoji-grid">
         {emojis.map((emoji, index) => (
-          <button className="emoji-button" key={index}>
+          <button
+            className="emoji-button"
+            key={index}
+            onClick={() => {
+              setContent(content + emoji);
+            }}
+          >
             {emoji}
           </button>
         ))}

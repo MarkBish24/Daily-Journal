@@ -106,6 +106,8 @@ export default function Editor() {
             <EmojiKeyboard
               positions={keyboardPositions}
               setDisplayKeyboard={setDisplayKeyboard}
+              content={content}
+              setContent={setContent}
             />
           ) : null}
           <button
