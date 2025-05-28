@@ -13,6 +13,8 @@ import {
   formatDate,
 } from "../src/DataBaseFunctions.jsx";
 
+import EmojiKeyboard from "./components/EmojiKeyboard.jsx";
+
 export default function Editor() {
   const { date } = useParams();
 
@@ -26,6 +28,7 @@ export default function Editor() {
 
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState("");
+  const [displayKeyboard, setdisplayKeyboard] = useState(false);
 
   const TitleDate = parsedDate.toLocaleDateString("en-US", {
     month: "long",
@@ -89,6 +92,13 @@ export default function Editor() {
             rows="20"
             cols="60"
           />
+          <button
+            className="add-emoji-button"
+            onClick={() => setdisplayKeyboard(!displayKeyboard)}
+          >
+            Add Emoji
+          </button>
+          {displayKeyboard ? <EmojiKeyboard /> : null}
           <button
             className="submit-button"
             onClick={() => {
